@@ -5,6 +5,7 @@ using System.Text;
 using Demographic.WinForms.View;
 using Demographic.FileOperations;
 using System.IO;
+using Demographic;
 
 namespace Demographic.WinForms.Presenter
 {
@@ -16,8 +17,9 @@ namespace Demographic.WinForms.Presenter
         private string _endYear;
         private string _population;
         private readonly IDemographicForm view;
-        private InitialFileParser initFile;
-        private DeathFileParser deathFile;
+        private InitialFileParser initFile = new InitialFileParser();
+        private DeathFileParser deathFile = new DeathFileParser();
+
 
         
         public DemographicPresenter(IDemographicForm demographicForm)
@@ -44,21 +46,21 @@ namespace Demographic.WinForms.Presenter
         {
             try
             {
-                deathFile = new DeathFileParser();
                 deathFile.ReadFile(_pathDeath);
-
             }
             catch (FileLoadException ex)
             {
                 view.DisplayError(ex.Message);
-                _pathDeath = "";
+                _pathDeath = null;
+                deathFile.ClearData();
                 view.DisplayDeathPath = _pathDeath;
 
             }
             catch (FileNotFoundException)
             {
                 view.DisplayError("Пустой путь к файлу");
-                _pathDeath = "";
+                _pathDeath = null;
+                deathFile.ClearData();
                 view.DisplayDeathPath = _pathDeath;
             }
         }
@@ -67,20 +69,21 @@ namespace Demographic.WinForms.Presenter
         {
             try
             {
-                initFile = new InitialFileParser();
                 initFile.ReadFile(_pathInit);
 
             }
             catch (FileLoadException ex)
             {
                 view.DisplayError(ex.Message);
-                _pathInit = "";
+                _pathInit = null;
+                initFile.ClearData();
                 view.DisplayInitPath = _pathInit;
             }
             catch (FileNotFoundException)
             {
                 view.DisplayError("Пустой путь к файлу");
-                _pathInit = "";
+                initFile.ClearData();
+                _pathInit = null;
                 view.DisplayInitPath = _pathInit;
             }
 
@@ -88,6 +91,21 @@ namespace Demographic.WinForms.Presenter
 
         public void StartModeling()
         {
+            try
+            {
+                Engine engine = new Engine();
+                engine.Initialize(_beginYear, _endYear, _population, initFile.Matrix, deathFile.Matrix);
+                engine.Modeling();
+
+            }
+            catch (FormatException)
+            {
+                view.DisplayError("Введены неверные данные");
+            }
+            catch (FileNotFoundException)
+            {
+                view.DisplayError("Сперва выберете файлы");
+            }
             Console.WriteLine(_beginYear + " " + _endYear + " " + _population);
         }
 

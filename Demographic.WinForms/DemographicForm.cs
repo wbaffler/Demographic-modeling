@@ -65,7 +65,7 @@ namespace Demographic.WinForms
             throw new NotImplementedException();
         }
 
-        public void SetBarChart(List<string> ageGroups, List<double> mPopulation, List<double> wPopulation)
+        public void SetBarChart(List<string> ageGroups, List<double> mFinalPopulation, List<double> wFinalPopulation)
         {
             throw new NotImplementedException();
         }

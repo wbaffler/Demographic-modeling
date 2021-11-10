@@ -63,5 +63,9 @@ namespace Demographic.FileOperations
             _stringMatrix = _stringsArray.Select(x => x.Split(',')).ToArray();
             DefineData();
         }
+        public void ClearData()
+        {
+            _convertedMatrix.Clear();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Demographic.FileOperations
     interface IInitialAgeFileParser
     {
         void ReadFile(string path);
+        void ClearData();
         List<ArrayList> Matrix { get;  }
 
     }

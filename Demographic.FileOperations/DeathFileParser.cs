@@ -50,6 +50,7 @@ namespace Demographic.FileOperations
 
         public void ReadFile(string path)
         {
+
             if (Path.GetExtension(path) != ".csv")
             {
                 throw new FileLoadException("Неверное расширение файла");
@@ -64,6 +65,11 @@ namespace Demographic.FileOperations
             string[] _stringsArray = File.ReadAllLines(path);
             _stringMatrix = _stringsArray.Select(x => x.Split(',')).ToArray();
             DefineData();
+        }
+
+        public void ClearData()
+        {
+            _convertedMatrix.Clear();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Demographic.FileOperations
     interface IDeathRulesFileParser
     {
         void ReadFile(string path);
+        void ClearData();
         List<ArrayList> Matrix { get; }
     }
 }
