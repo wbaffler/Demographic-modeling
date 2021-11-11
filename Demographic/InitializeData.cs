@@ -24,6 +24,19 @@ namespace Demographic
         public List<ArrayList> InitMatrix => _initMatrix;
 
         public List<ArrayList> DeathMatrix => _deathMatrix;
+        public List<List<int>> AgeGroups
+        {
+            get
+            {
+                List<List<int>> list = new List<List<int>>();
+                list.Add(new List<int>() { 0, 18 });
+                list.Add(new List<int>() { 19, 45 });
+                list.Add(new List<int>() { 46, 65 });
+                list.Add(new List<int>() { 66, 100 });
+                return list;
+
+            }
+        }
 
         public void Initialize(string beginYear, string endYear, string population,
             List<ArrayList> initMatrix, List<ArrayList> deathMatrix)

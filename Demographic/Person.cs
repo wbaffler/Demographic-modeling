@@ -31,22 +31,24 @@ namespace Demographic
             
             for (int i = 0; i < _deathRules.Count; i ++)
             {
-                for (int tableAge = (int)_deathRules[i][0]; tableAge < (int)_deathRules[i][1];
-                    tableAge ++)
+                if (_age >= (int)_deathRules[i][0] && _age <= (int)_deathRules[i][1])
                 {
-                    if (_age == tableAge && _sex == "F" && 
-                        ProbabilityCalculator.IsEventHappened((double)_deathRules[i][3]))
+                    if (_sex == "F" && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][3]))
                     {
                         _isLiving = false;
                         _deathYear = _currentYear;
                     }
-                    else if (_age == tableAge && _sex == "M" &&
-                        ProbabilityCalculator.IsEventHappened((double)_deathRules[i][3]))
+                    else if (_sex == "M" && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][2]))
                     {
                         _isLiving = false;
                         _deathYear = _currentYear;
-                    }
+                    }               
                 }
+            }
+            if (_age > 100)
+            {
+                _isLiving = false;
+                _deathYear = _currentYear;
             }
         }
 

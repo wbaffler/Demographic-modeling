@@ -12,11 +12,11 @@ namespace Demographic
             List<ArrayList> initMatrix, List<ArrayList> deathMatrix);
 
         List<int> Years { get; }
-        List<double> MPopulation { get; }
-        List<double> WPopulation { get; }
-        List<double> Population { get; }
-        List<int> AgeGroups { get; }
-        List<double> MAgePopulation { get; }
-        List<double> WAgePopulation { get; }
+        List<int> MPopulation { get; }
+        List<int> WPopulation { get; }
+        List<int> Population { get; }
+        List<List<int>> AgeGroups { get; }
+        List<int> MAgePopulation { get; }
+        List<int> WAgePopulation { get; }
     }
 }

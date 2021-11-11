@@ -52,7 +52,7 @@ namespace Demographic.WinForms
             presenter.BeginYear = beginYearBox.Text;
             presenter.EndYear = endYearBox.Text;
             presenter.NumOfPopulation = population.Text;
-            presenter.StartModeling();
+            presenter.MakeModel();
         }
 
         public void DisplayError(string errorText)
@@ -60,14 +60,45 @@ namespace Demographic.WinForms
             MessageBox.Show(errorText);
         }
 
-        public void SetSplineChart(List<int> years, List<double> mPopulation, List<double> wPopulation, List<double> Population)
+        public void SetSplineChart(List<int> years, List<int> mPopulation, List<int> wPopulation, List<int> population)
         {
-            throw new NotImplementedException();
+            splineChart.Series[0].Points.Clear();
+            splineChart.Series[1].Points.Clear();
+            splineChart.Series[2].Points.Clear();
+            for (int i = 0; i < years.Count; i++)
+            {
+                splineChart.Series[0].Points.AddXY(years[i], population[i]);
+                splineChart.Series[1].Points.AddXY(years[i], mPopulation[i]);
+                splineChart.Series[2].Points.AddXY(years[i], wPopulation[i]);
+            }
         }
 
-        public void SetBarChart(List<string> ageGroups, List<double> mFinalPopulation, List<double> wFinalPopulation)
+        public void SetBarChart(List<string> ageGroups, List<int> mFinalPopulation, List<int> wFinalPopulation)
         {
-            throw new NotImplementedException();
+            /*for (int i = 0; i < ageGroups.Count; i++)
+            {
+                barChartMen.Series[i].Points.Clear();
+            }*/
+
+            barChartMen.Series.Clear();
+            barChartMen.Titles.Clear();
+            barChartMen.Legends.Clear();
+
+
+            barChartWomen.Series.Clear();
+            barChartWomen.Titles.Clear();
+
+            barChartMen.ChartAreas.cre;
+            barChartMen.Titles.Add("Мужской пол");
+            barChartWomen.Titles.Add("Женский пол");
+            for (int i = 0; i < ageGroups.Count; i++)
+            {               
+                barChartMen.Series.Add(ageGroups[i]);
+                barChartMen.Series[i].Points.Add(mFinalPopulation[i]);
+               
+                barChartWomen.Series.Add(ageGroups[i]);
+                barChartWomen.Series[i].Points.Add(wFinalPopulation[i]);
+            }
         }
     }
 }

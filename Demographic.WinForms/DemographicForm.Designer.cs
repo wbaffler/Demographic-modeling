@@ -37,10 +37,8 @@ namespace Demographic.WinForms
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.fileInitButton = new System.Windows.Forms.Button();
             this.fileDeathButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -136,7 +134,7 @@ namespace Demographic.WinForms
             // splineChart
             // 
             chartArea1.AxisX.Title = "Год";
-            chartArea1.AxisY.Title = "Возраст";
+            chartArea1.AxisY.Title = "Численность";
             chartArea1.Name = "ChartArea1";
             this.splineChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -161,35 +159,22 @@ namespace Demographic.WinForms
             // 
             // barChartMen
             // 
-            chartArea2.AxisX.Title = "Возраст";
             chartArea2.AxisY.Title = "Численность";
             chartArea2.Name = "ChartArea1";
             this.barChartMen.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
+            legend2.Name = "Мужской пол";
             this.barChartMen.Legends.Add(legend2);
             resources.ApplyResources(this.barChartMen, "barChartMen");
             this.barChartMen.Name = "barChartMen";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series4.Legend = "Legend1";
-            series4.Name = "Мужской пол";
-            series4.YValuesPerPoint = 6;
-            this.barChartMen.Series.Add(series4);
             // 
             // barChartWomen
             // 
             chartArea3.Name = "ChartArea1";
             this.barChartWomen.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
+            legend3.Name = "Женский пол";
             this.barChartWomen.Legends.Add(legend3);
             resources.ApplyResources(this.barChartWomen, "barChartWomen");
             this.barChartWomen.Name = "barChartWomen";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series5.Legend = "Legend1";
-            series5.Name = "Женский пол";
-            series5.YValuesPerPoint = 6;
-            this.barChartWomen.Series.Add(series5);
             // 
             // DemographicForm
             // 

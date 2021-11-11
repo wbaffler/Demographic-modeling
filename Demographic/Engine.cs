@@ -10,8 +10,13 @@ namespace Demographic
     public class Engine : IEngine
     {
         private List<Person> people = new List<Person>();
-        private List<int> yearArr = new List<int>();
+        private List<int> _yearArr = new List<int>();
         private InitializeData init;
+        private List<int> _mPopulation = new List<int>();
+        private List<int> _wPopulation = new List<int>();
+        private List<int> _population = new List<int>();
+        private List<int> _mAgePopulation = new List<int>();
+        private List<int> _wAgePopulation = new List<int>();
 
         private void MakeBasis()
         {
@@ -42,14 +47,14 @@ namespace Demographic
         {
             if (ProbabilityCalculator.IsEventHappened(0.55))
             {
-                Person personF = new Person("F", yearArr.Last(), init.DeathMatrix);
+                Person personF = new Person("F", _yearArr.Last(), init.DeathMatrix);
                 YearTick += personF.RenewYear;
                 personF.ChildBirth += NewPerson;
                 people.Add(personF);
             }
             else
             {
-                Person personM = new Person("M", yearArr.Last(), init.DeathMatrix);
+                Person personM = new Person("M", _yearArr.Last(), init.DeathMatrix);
                 YearTick += personM.RenewYear;
                 people.Add(personM);
             }              
@@ -57,22 +62,21 @@ namespace Demographic
 
         public delegate void Notification(int year);
         public event Notification YearTick;
-        public List<int> Years => throw new NotImplementedException();
+        public List<int> Years => _yearArr;
 
-        public List<double> MPopulation => throw new NotImplementedException();
+        public List<int> MPopulation => _mPopulation;
 
-        public List<double> WPopulation => throw new NotImplementedException();
+        public List<int> WPopulation => _wPopulation;
 
-        public List<double> Population => throw new NotImplementedException();
+        public List<int> Population => _population;
 
-        public List<int> AgeGroups => throw new NotImplementedException();
+        public List<List<int>> AgeGroups => init.AgeGroups;
 
-        public List<double> MAgePopulation => throw new NotImplementedException();
+        public List<int> MAgePopulation => _mAgePopulation;
 
-        public List<double> WAgePopulation => throw new NotImplementedException();
+        public List<int> WAgePopulation => _wAgePopulation;
 
 
-        
 
         public void Modeling(string beginYear, string endYear, string population,
             List<ArrayList> initMatrix, List<ArrayList> deathMatrix)
@@ -80,18 +84,37 @@ namespace Demographic
             init = new InitializeData();
             init.Initialize(beginYear, endYear, population, initMatrix, deathMatrix);
             MakeBasis();
+
             for (int currentYear = init.BeginYear; currentYear < init.EndYear; currentYear++)
             {
-                yearArr.Add(currentYear);
-                int number = (from p in people where p.Age == 91 select p).Count();
+                _yearArr.Add(currentYear);
+                int mPopulation = (from p in people where p.IsLiving && p.Sex == "M" select p).Count();
+                int wPopulation = (from p in people where p.IsLiving && p.Sex == "F" select p).Count();
+                int fullPopulation = mPopulation + wPopulation;
+                _mPopulation.Add(mPopulation);
+                _wPopulation.Add(wPopulation);
+                _population.Add(fullPopulation);
+
                 YearTick(currentYear);
-                //Console.WriteLine("All people: " + people.Count);
          
                 
-                Console.WriteLine(number);
-                //var b = (from p in people where p.IsLiving select p).All
-                //Console.WriteLine();
+                Console.WriteLine(mPopulation + " " + wPopulation);
+            }
+            
+            for (int i = 0; i < init.AgeGroups.Count; i++)
+            {
+                int mAgePopulation = (from p in people 
+                                      where p.Age >= init.AgeGroups[i][0] &&
+                                      p.Age <= init.AgeGroups[i][1] && 
+                                      p.Sex == "M" select p).Count();
+                int wAgePopulation = (from p in people
+                                      where p.Age >= init.AgeGroups[i][0] &&
+                                      p.Age <= init.AgeGroups[i][1] &&
+                                      p.Sex == "F"
+                                      select p).Count();
 
+                _mAgePopulation.Add(mAgePopulation);
+                _wAgePopulation.Add(wAgePopulation);
             }
         }
 

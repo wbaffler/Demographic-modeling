@@ -9,7 +9,7 @@ namespace Demographic.WinForms.Presenter
     {
         void ProcessInitFile();
         void ProcessDeathFile();
-        void StartModeling();
+        void MakeModel();
         void DisplayInitPath();
         void DisplayDeathPath();
         string PathInitFile {get; set; }

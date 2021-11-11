@@ -19,6 +19,15 @@ namespace Demographic.WinForms.Presenter
         private readonly IDemographicForm view;
         private InitialFileParser initFile = new InitialFileParser();
         private DeathFileParser deathFile = new DeathFileParser();
+        private List<string> convertedAgeGroups(List<List<int>> ageGroups)
+        {
+            List<string> stringAgeGroups = new List<string>();
+            for (int i = 0; i < ageGroups.Count; i++)
+            {
+                stringAgeGroups.Add(ageGroups[i][0] + " - " + ageGroups[i][1]);
+            }
+            return stringAgeGroups;
+        }
 
 
         
@@ -89,12 +98,14 @@ namespace Demographic.WinForms.Presenter
 
         }
 
-        public void StartModeling()
+        public void MakeModel()
         {
             try
             {
                 IEngine engine = new Engine();
                 engine.Modeling(_beginYear, _endYear, _population, initFile.Matrix, deathFile.Matrix);
+                view.SetBarChart(convertedAgeGroups(engine.AgeGroups), engine.MAgePopulation, engine.WAgePopulation);
+                view.SetSplineChart(engine.Years, engine.MPopulation, engine.WPopulation, engine.Population);
 
             }
             catch (FormatException)

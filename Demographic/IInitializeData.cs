@@ -16,6 +16,6 @@ namespace Demographic
 
         List<ArrayList> InitMatrix { get; }
         List<ArrayList> DeathMatrix { get; }
-
+        List<List<int>> AgeGroups { get; }
     }
 }
