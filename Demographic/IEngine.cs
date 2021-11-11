@@ -8,9 +8,8 @@ namespace Demographic
 {
     public interface IEngine
     {
-        void Initialize(string beginYear, string endYear, string population, 
+        void Modeling(string beginYear, string endYear, string population,
             List<ArrayList> initMatrix, List<ArrayList> deathMatrix);
-        void Modeling();
 
         List<int> Years { get; }
         List<double> MPopulation { get; }

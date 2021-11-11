@@ -93,9 +93,8 @@ namespace Demographic.WinForms.Presenter
         {
             try
             {
-                Engine engine = new Engine();
-                engine.Initialize(_beginYear, _endYear, _population, initFile.Matrix, deathFile.Matrix);
-                engine.Modeling();
+                IEngine engine = new Engine();
+                engine.Modeling(_beginYear, _endYear, _population, initFile.Matrix, deathFile.Matrix);
 
             }
             catch (FormatException)

@@ -7,10 +7,10 @@ namespace Demographic
 {
     public interface IPerson
     {
-        string Sex { get; set; }
-        int YearBirth { get; set; }
+        string Sex { get; }
+        int YearBirth { get; }
         int Age { get; }
-        bool IsLiving { get; set; }
+        bool IsLiving { get; }
         int DeathYear { get; }
         void RenewYear(int year);
     }
