@@ -82,13 +82,15 @@ namespace Demographic.WinForms
 
             barChartMen.Series.Clear();
             barChartMen.Titles.Clear();
-            barChartMen.Legends.Clear();
+            barChartMen.ChartAreas.Clear();
 
 
             barChartWomen.Series.Clear();
             barChartWomen.Titles.Clear();
+            barChartWomen.ChartAreas.Clear();
 
-            barChartMen.ChartAreas.cre;
+            barChartMen.ChartAreas.Add("M");
+            barChartWomen.ChartAreas.Add("W");
             barChartMen.Titles.Add("Мужской пол");
             barChartWomen.Titles.Add("Женский пол");
             for (int i = 0; i < ageGroups.Count; i++)

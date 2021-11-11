@@ -14,7 +14,6 @@ namespace Demographic
         private int _population;
         private List<ArrayList> _initMatrix;
         private List<ArrayList> _deathMatrix;
-        private List<Person> people = new List<Person>();
         public int BeginYear => _beginYear;
 
         public int EndYear => _endYear;
@@ -51,6 +50,12 @@ namespace Demographic
             _beginYear = Convert.ToInt32(beginYear);
             _endYear = Convert.ToInt32(endYear);
             _population = Convert.ToInt32(population);
+            
+            if (_beginYear >= _endYear)
+                throw new FormatException();
+            if (_population <= 0)
+                throw new FormatException();
+
             _initMatrix = initMatrix;
             _deathMatrix = deathMatrix;
 
