@@ -8,9 +8,10 @@ using System.Text;
 
 namespace Demographic.FileOperations
 {
-    public class InitialFileParser : IInitialAgeFileParser
+    public class InitialFileParser : IFileParser
     {
-        string[][] _stringMatrix;
+        private const int _maxSizeBytes = 2 * 1024 * 1024;
+        private string[][] _stringMatrix;
         private int _numInRow = 2;
         private List<ArrayList> _convertedMatrix = new List<ArrayList>();
         private void DefineData()
@@ -54,9 +55,9 @@ namespace Demographic.FileOperations
             }
             if (path == null)
                 throw new FileNotFoundException();
-            long size = new FileInfo(path).Length;
-            Console.WriteLine("file size " + size);
-            if (size > 2 * 1024 * 1024)
+            long sizeBytes = new FileInfo(path).Length;
+            Console.WriteLine("file size " + sizeBytes);
+            if (sizeBytes > _maxSizeBytes)
                 throw new FileLoadException("Превышен размер файла");
 
             string[] _stringsArray = File.ReadAllLines(path);

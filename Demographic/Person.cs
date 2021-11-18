@@ -8,21 +8,44 @@ namespace Demographic
 {
     public class Person : IPerson
     {
-
-        private string _sex;
+        private const int maxAge = 100;
+        private const double probabilityOfChild = 0.151;
+        private List<int> giveBirthAge = new List<int>() { 18, 45 };
+        //private string _sex;
         private int _yearBirth;
         private int _age;
         private List<ArrayList> _deathRules;
         private int _deathYear;
         private bool _isLiving;
         private int _currentYear;
+        private SexClass.Sex _sex;
+        private int Male = 0;
 
+        public delegate void Notification();
+        public event Notification ChildBirth;
+        public SexClass.Sex Sex => _sex;
+
+        public int YearBirth => _yearBirth;
+
+        public int Age => _age;
+
+        public bool IsLiving => _isLiving;
+
+        public int DeathYear => _deathYear;
+        public Person(SexClass.Sex sex, int yearBirth, List<ArrayList> deathRules)
+        {
+            _sex = sex;
+            _yearBirth = yearBirth;
+            _deathRules = deathRules;
+            _isLiving = true;
+            
+        }
 
 
         private void NewChild()
         {
-            if (_sex == "F" && _age >= 18 && _age <= 45)
-                if (ProbabilityCalculator.IsEventHappened(0.151))
+            if (_sex == SexClass.Sex.Female && _age >= giveBirthAge[0] && _age <= giveBirthAge[1])
+                if (ProbabilityCalculator.IsEventHappened(probabilityOfChild))
                     ChildBirth();
         }
 
@@ -33,35 +56,27 @@ namespace Demographic
             {
                 if (_age >= (int)_deathRules[i][0] && _age <= (int)_deathRules[i][1])
                 {
-                    if (_sex == "F" && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][3]))
+                    if (_sex == SexClass.Sex.Female && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][3]))
                     {
                         _isLiving = false;
                         _deathYear = _currentYear;
                     }
-                    else if (_sex == "M" && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][2]))
+                    else if (_sex == SexClass.Sex.Male && ProbabilityCalculator.IsEventHappened((double)_deathRules[i][2]))
                     {
                         _isLiving = false;
                         _deathYear = _currentYear;
                     }               
                 }
             }
-            if (_age > 100)
+            if (_age > maxAge)
             {
                 _isLiving = false;
                 _deathYear = _currentYear;
             }
         }
 
-        public delegate void Notification();
-        public event Notification ChildBirth;
-        public Person(string sex, int yearBirth, List<ArrayList> deathRules)
-        {
-            _sex = sex;
-            _yearBirth = yearBirth;
-            _deathRules = deathRules;
-            _isLiving = true;
-        }
-       
+        
+        
 
         public void RenewYear(int year)
         {
@@ -72,15 +87,7 @@ namespace Demographic
 
         }
 
-        public string Sex => _sex;
 
-        public int YearBirth => _yearBirth;
-
-        public int Age => _age;
-
-        public bool IsLiving => _isLiving;
-
-        public int DeathYear => _deathYear;
 
 
     }

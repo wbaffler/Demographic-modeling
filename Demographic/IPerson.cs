@@ -7,7 +7,7 @@ namespace Demographic
 {
     public interface IPerson
     {
-        string Sex { get; }
+        SexClass.Sex Sex { get; }
         int YearBirth { get; }
         int Age { get; }
         bool IsLiving { get; }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Demographic.FileOperations
 {
-    interface IDeathRulesFileParser
+    interface IFileParser
     {
         void ReadFile(string path);
         void ClearData();

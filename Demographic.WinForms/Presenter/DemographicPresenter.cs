@@ -107,6 +107,14 @@ namespace Demographic.WinForms.Presenter
                 view.SetBarChart(convertedAgeGroups(engine.AgeGroups), engine.MAgePopulation, engine.WAgePopulation);
                 view.SetSplineChart(engine.Years, engine.MPopulation, engine.WPopulation, engine.Population);
 
+                _pathDeath = null;
+                deathFile.ClearData();
+                view.DisplayDeathPath = _pathDeath;
+                _pathInit = null;
+                initFile.ClearData();
+                view.DisplayInitPath = _pathInit;
+
+
             }
             catch (FormatException)
             {

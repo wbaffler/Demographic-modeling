@@ -75,15 +75,10 @@ namespace Demographic.WinForms
 
         public void SetBarChart(List<string> ageGroups, List<int> mFinalPopulation, List<int> wFinalPopulation)
         {
-            /*for (int i = 0; i < ageGroups.Count; i++)
-            {
-                barChartMen.Series[i].Points.Clear();
-            }*/
 
             barChartMen.Series.Clear();
             barChartMen.Titles.Clear();
             barChartMen.ChartAreas.Clear();
-
 
             barChartWomen.Series.Clear();
             barChartWomen.Titles.Clear();
